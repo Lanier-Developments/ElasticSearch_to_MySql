@@ -1,0 +1,49 @@
+=== ELASTICSEARCH DATA DUMP ===
+Timestamp: 2026-01-08T13:04:19.767676
+URL: http://localhost:9200/test/_search
+Query: {
+  "query": {
+    "match_all": {}
+  }
+}
+==================================================
+
+=== INITIAL SCROLL RESPONSE ===
+{
+  "hits": {
+    "hits": [
+      {
+        "_id": "1",
+        "_source": {
+          "data": "test1"
+        }
+      },
+      {
+        "_id": "2",
+        "_source": {
+          "data": "test2"
+        }
+      }
+    ]
+  },
+  "_scroll_id": "scroll1"
+}
+
+=== SCROLL BATCH 1 ===
+{
+  "hits": {
+    "hits": [
+      {
+        "_id": "3",
+        "_source": {
+          "data": "test3"
+        }
+      }
+    ]
+  },
+  "_scroll_id": "scroll2"
+}
+
+=== FETCH COMPLETED ===
+Total records fetched: 3
+Completion time: 2026-01-08T13:04:19.768282
