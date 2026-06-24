@@ -1,5 +1,5 @@
 requests>=2.34.2
-mysql-connector-python>=8.2.0
+mysql-connector-python>=9.7.0
 pytest>=8.4.2
 pytest-cov>=7.1.0
 prometheus-client>=0.25.0
