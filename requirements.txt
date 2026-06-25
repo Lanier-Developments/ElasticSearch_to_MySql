@@ -6,5 +6,5 @@ prometheus-client>=0.25.0
 anthropic>=0.111.0  # Optional: for AI-powered error analysis
 beautifulsoup4>=4.15.0
 coverage-badge>=1.1.2
-urllib3>=2.6.3 # not directly required, pinned by Snyk to avoid a vulnerability
+urllib3>=2.7.0 # not directly required, pinned by Snyk to avoid a vulnerability
 pytest-agents>=1.0.9
