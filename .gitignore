@@ -3,3 +3,4 @@ __pycache__/*
 pipeline.log
 *.jsonl
 daily_run_ai_error_test.log
+elasticSearchData-*.txt
