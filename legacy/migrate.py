@@ -1,4 +1,5 @@
 import argparse
+import re
 import requests
 import json
 import mysql.connector
@@ -6,6 +7,22 @@ import logging
 import threading
 from queue import Queue
 import sys
+
+# MySQL unquoted identifiers may only contain these characters (ASCII subset,
+# see https://dev.mysql.com/doc/refman/8.0/en/identifiers.html). Table names
+# cannot be passed as query parameters, so they must be validated before
+# being interpolated into SQL.
+_VALID_IDENTIFIER = re.compile(r"^[A-Za-z0-9_$]+$")
+
+
+def _validate_identifier(name, kind="table"):
+    """Validate a SQL identifier to prevent SQL injection via table/column names."""
+    if not name or not _VALID_IDENTIFIER.match(name):
+        raise ValueError(
+            f"Invalid {kind} name {name!r}: must contain only letters, digits, "
+            f"underscores, or '$'"
+        )
+    return name
 
 # Configure logging
 logging.basicConfig(
@@ -21,6 +38,7 @@ def mysql_connection(host, user, password, database):
     return mysql.connector.connect(host=host, user=user, password=password, database=database)
 
 def insert_worker(queue, db_config, table):
+    table = _validate_identifier(table)
     conn = mysql_connection(**db_config)
     cursor = conn.cursor()
     # Use INSERT IGNORE to skip duplicates automatically without errors
