@@ -5,6 +5,7 @@ Author: Kevin McAllorum (kevin_mcallorum@linux.com)
 GitHub: github.com/kmcallorum
 License: MIT
 """
+import re
 import requests
 import json
 import mysql.connector
@@ -16,6 +17,22 @@ import mysql.connector.pooling
 from datetime import datetime
 
 logger = logging.getLogger(__name__)
+
+# MySQL unquoted identifiers may only contain these characters (ASCII subset,
+# see https://dev.mysql.com/doc/refman/8.0/en/identifiers.html). Table names
+# cannot be passed as query parameters, so they must be validated before
+# being interpolated into SQL.
+_VALID_IDENTIFIER = re.compile(r"^[A-Za-z0-9_$]+$")
+
+
+def _validate_identifier(name: str, kind: str = "table") -> str:
+    """Validate a SQL identifier to prevent SQL injection via table/column names."""
+    if not name or not _VALID_IDENTIFIER.match(name):
+        raise ValueError(
+            f"Invalid {kind} name {name!r}: must contain only letters, digits, "
+            f"underscores, or '$'"
+        )
+    return name
 
 
 class ElasticsearchSource(DataSource):
@@ -167,7 +184,7 @@ class MySQLSink(DataSink):
         self.user = user
         self.password = password
         self.database = database
-        self.table = table
+        self.table = _validate_identifier(table)
 
         # CREATE CONNECTION POOL (thread-safe!)
         self.pool = mysql.connector.pooling.MySQLConnectionPool(
