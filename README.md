@@ -9,7 +9,7 @@
 
 A production-ready, testable data migration tool for moving data between Elasticsearch, MySQL, CSV files, and other sources/sinks. Built with dependency injection for maximum flexibility and testability.
 
-> **Built by a Principal Engineer with 43 years of enterprise software experience**, including work at Bell Labs (DSL technology) and Bank of New York (stock market systems) on critical infrastructure achieving 99.9% uptime.
+> **Built by a Principal Engineer with 20+ years of enterprise software experience**, including work at Bell Labs (DSL technology) and Bank of New York (stock market systems) on critical infrastructure achieving 99.9% uptime.
 
 ## Why This Exists
 
@@ -379,7 +379,7 @@ Copyright (c) 2024 Kevin McAllorum
 **Kevin McAllorum**
 - Email: kevin_mcallorum@linux.com
 - GitHub: [@kmcallorum](https://github.com/kmcallorum)
-- Experience: 43 years in enterprise software engineering
+- Experience: 20+ years in enterprise software engineering
   - Bell Labs: DSL technology development
   - Bank of New York: Stock market systems
   - Current: Principal Engineer at UHG/Optum
